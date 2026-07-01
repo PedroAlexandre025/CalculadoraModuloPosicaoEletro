@@ -1,86 +1,492 @@
-# Calculadora de Campo Elétrico - Ponto P ⚡
+# ⚡ Calculadora de Campo Elétrico – Ponto P
 
-Este projeto é uma aplicação gráfica desenvolvida em Java (Swing) para simular e calcular o vetor campo elétrico resultante em um sistema de cargas pontuais. O sistema foi inspirado em um problema clássico de Física Universitária (Eletromagnetismo/Eletrostática).
+Este projeto consiste em uma aplicação gráfica desenvolvida em **Java (Swing)** para simular e calcular o **campo elétrico resultante** em um ponto específico de um sistema de cargas pontuais.
 
-
-
-## 📐 O Problema Inspirador
-
-<img width="761" height="364" alt="image" src="https://github.com/user-attachments/assets/0f741654-b046-4fde-93f1-48aaed055ca7" />
-
-
-O programa resolve o seguinte arranjo geométrico:
-* Três partículas carregadas são mantidas fixas em um plano cartesiano.
-* A carga $q_1$ está no eixo y (coordenada $0, a$).
-* A carga $q_2$ está no eixo x (coordenada $a, 0$).
-* A carga $q_3$ está na origem (coordenada $0, 0$).
-* O objetivo é determinar o campo elétrico resultante no **ponto P**, que está localizado no ponto médio da reta (hipotenusa) que conecta $q_1$ e $q_2$.
+O programa foi inspirado em um problema clássico de **Física Universitária (Eletromagnetismo/Eletrostática)** e implementa a solução analítica do exercício, permitindo alterar os valores das cargas e da distância entre elas, mantendo a mesma configuração geométrica.
 
 ---
 
-## 🧮 Resolução Matemática (Passo a Passo)
+# 📐 O Problema Inspirador
 
-A lógica do código é baseada na seguinte resolução teórica:
+O programa foi desenvolvido a partir do seguinte exercício:
+<img width="1133" height="532" alt="image" src="https://github.com/user-attachments/assets/b2d805e7-46c5-4e08-a595-0aa314099b3a" />
 
-### 1. Entendendo a Geometria e as Posições
-O ponto P está exatamente no meio da reta que liga $q_1$ e $q_2$. Fazendo a média das coordenadas das extremidades:
-* $x_p = \frac{0 + a}{2} = \frac{a}{2}$
-* $y_p = \frac{a + 0}{2} = \frac{a}{2}$
 
-Logo, o ponto P está na coordenada $(\frac{a}{2}, \frac{a}{2})$.
-
-### 2. A Distância até o Ponto P
-Aplicando o Teorema de Pitágoras para encontrar a distância ao quadrado ($d^2$) da origem ($q_3$) até P:
-$$d_3^2 = \left(\frac{a}{2} - 0\right)^2 + \left(\frac{a}{2} - 0\right)^2$$
-$$d_3^2 = \frac{a^2}{4} + \frac{a^2}{4} = \frac{a^2}{2}$$
-
-Se calcularmos a distância de P até $q_1$ e $q_2$, veremos que é idêntica: $d_1^2 = d_2^2 = \frac{a^2}{2}$.
-
-### 3. A Superposição Vetorial (O Cancelamento)
-   
-O campo elétrico total em P é a soma vetorial: E_total = E_1 + E_2 + E_3. Como q_1 = +e e q_2 = +e, elas têm o mesmo valor e estão à mesma distância de P. Seus vetores de campo possuem a mesma intensidade, mas apontam em direções opostas ao longo da mesma reta. Portanto, eles se anulam (E_1 + E_2 = 0). O campo resultante é causado apenas por q_3:
-
-E_total = E_3
-
-### 4. O Cálculo do Módulo Resultante
-Aplicando a fórmula do campo elétrico para $q_3 = 2e$:
-$$E = k \frac{|q|}{d^2} \implies E = k \frac{2e}{\frac{a^2}{2}} \implies E = \frac{4ke}{a^2}$$
-
-Substituindo com as constantes ($k = 8,99 \times 10^9$, $e = 1,60 \times 10^{-19}$, $a = 6,00 \times 10^{-6}$):
-$$E = \frac{4 \cdot (8,99 \times 10^9) \cdot (1,60 \times 10^{-19})}{(6,00 \times 10^{-6})^2}$$
-$$E = \frac{57,536 \times 10^{-10}}{36,0 \times 10^{-12}} \approx 160 \text{ N/C}$$
-
-### 5. Determinando a Direção
-Como a coordenada X e Y de P são iguais $(\frac{a}{2}, \frac{a}{2})$, a reta que sai da origem até P divide o quadrante perfeitamente ao meio. Logo, a direção do vetor resultante é de **45°** em relação ao semieixo x positivo.
+> Na Fig. 22.21, as três partículas são mantidas fixas no lugar e têm cargas
+>
+> \[
+> q_1=q_2=+e
+> \]
+>
+> e
+>
+> \[
+> q_3=+2e
+> \]
+>
+> A distância
+>
+> \[
+> a=6,00\ \mu m
+> \]
+>
+> Determine:
+>
+> - (a) o módulo do campo elétrico no ponto P;
+> - (b) a direção do campo elétrico no ponto P.
 
 ---
 
-## 💻 Tecnologia e Implementação
+# 🎯 Objetivo do Projeto
 
-* **Linguagem:** Java
-* **Interface Gráfica:** Java Swing (`JFrame`, `JPanel`, `JTextField`, `JTextArea`)
-* **Implementação Matemática:** O código decompõe os vetores nos eixos X e Y usando projeções trigonométricas de 45° ($\frac{\sqrt{2}}{2}$):
-  * $E_x = E_0 \cdot \frac{\sqrt{2}}{2} \cdot (q_1 - q_2 + q_3)$
-  * $E_y = E_0 \cdot \frac{\sqrt{2}}{2} \cdot (-q_1 + q_2 + q_3)$
+O objetivo do simulador é determinar o vetor campo elétrico resultante no ponto **P**, utilizando o princípio da superposição vetorial.
 
-## 🛡️ Restrições de Input
+O programa permite alterar:
 
-Para garantir a estabilidade do programa e a coerência física, o sistema possui as seguintes validações:
-* **Restrição de Tipo:** Uso de `try-catch` para capturar `NumberFormatException`. Letras e caracteres especiais são bloqueados, exibindo um aviso na tela.
-* **Restrição de Domínio Físico:** A distância $a$ define a geometria do triângulo. O programa exige que $a > 0$. Valores negativos ou nulos são bloqueados para evitar divisão por zero ($E = \frac{kq}{d^2}$) e inversão não-física dos vetores.
+- o valor de \(q_1\);
+- o valor de \(q_2\);
+- o valor de \(q_3\);
+- a distância \(a\).
 
-## 📊 Output do Simulador
+Mantendo a geometria original do problema.
 
-Ao processar o cálculo, a interface exibe um relatório vetorial contendo:
-1. Componente X ($E_x$) e Componente Y ($E_y$) em N/C.
-2. O **Módulo Resultante** total do campo.
-3. A **Direção** (ângulo em graus).
-4. **Observação Física:** Se o usuário inserir $q_1 = q_2$, o programa identifica a simetria dinamicamente e adiciona uma explicação teórica avisando sobre o cancelamento vetorial perfeito.
+---
 
-## 🚀 Como Executar
+# 📍 Geometria Utilizada
 
-1. Certifique-se de ter o [JDK](https://www.oracle.com/java/technologies/downloads/) instalado.
-2. Clone o repositório ou baixe o arquivo `CalculadoraEletrostatica.java`.
-3. Abra o terminal na pasta do arquivo e compile:
-   ```bash
-   javac CalculadoraEletrostatica.java
+O sistema adota a seguinte configuração cartesiana:
+
+```text
+                y
+
+            q1(0,a)
+               ●
+               |\
+               | \
+               |  \
+               | P \
+               ●----●
+           q3      q2
+          (0,0)   (a,0)
+
+                    x
+```
+
+As posições são:
+
+\[
+q_1=(0,a)
+\]
+
+\[
+q_2=(a,0)
+\]
+
+\[
+q_3=(0,0)
+\]
+
+O ponto P encontra-se exatamente no ponto médio da hipotenusa:
+
+\[
+P=
+\left(
+\frac a2,
+\frac a2
+\right)
+\]
+
+---
+
+# 📚 Fundamentação Teórica
+
+O campo elétrico produzido por uma carga puntiforme é definido por:
+
+\[
+E=
+\frac{kq}{r^2}
+\]
+
+onde:
+
+| Símbolo | Descrição |
+|---|---|
+| \(E\) | Campo elétrico |
+| \(k\) | Constante eletrostática |
+| \(q\) | Valor da carga |
+| \(r\) | Distância até o ponto analisado |
+
+A constante eletrostática utilizada é:
+
+\[
+k=8,99\times10^9\ N\cdot m^2/C^2
+\]
+
+---
+
+# 🔴 Passo 1 — Encontrando o ponto P
+
+Como o triângulo é retângulo e isósceles, o ponto P encontra-se exatamente no centro da hipotenusa.
+
+Logo:
+
+\[
+x_P=\frac{0+a}{2}
+\]
+
+\[
+y_P=\frac{a+0}{2}
+\]
+
+resultando em:
+
+\[
+P=
+\left(
+\frac a2,
+\frac a2
+\right)
+\]
+
+---
+
+# 🔴 Passo 2 — Calculando a distância até P
+
+Aplicando Pitágoras:
+
+\[
+r^2=
+\left(
+\frac a2
+\right)^2+
+\left(
+\frac a2
+\right)^2
+\]
+
+\[
+r^2=
+\frac{a^2}{4}+
+\frac{a^2}{4}
+\]
+
+\[
+r^2=
+\frac{a^2}{2}
+\]
+
+Portanto:
+
+\[
+r=
+\frac a{\sqrt2}
+\]
+
+Essa distância é a mesma para as três cargas.
+
+---
+
+# 🔴 Passo 3 — Campo produzido por uma carga elementar
+
+Substituindo a distância na fórmula do campo elétrico:
+
+\[
+E=
+\frac{kq}{a^2/2}
+\]
+
+Dividir por uma fração equivale a multiplicar pelo inverso:
+
+\[
+E=
+\frac{2kq}{a^2}
+\]
+
+Adotando:
+
+\[
+q=e
+\]
+
+obtemos o fator utilizado pelo programa:
+
+\[
+E_0=
+\frac{2ke}{a^2}
+\]
+
+Implementado como:
+
+```java
+double E0 = (2*k*eCarga)/Math.pow(aMetros,2);
+```
+
+---
+
+# 🔴 Passo 4 — Decomposição Vetorial
+
+Como todos os vetores fazem um ângulo de 45°:
+
+\[
+\sin45^\circ=
+\cos45^\circ=
+\frac{\sqrt2}{2}
+\]
+
+As componentes produzidas por cada carga são:
+
+### Carga q₁
+
+\[
+E_{1x}
+=
+E_0
+\frac{\sqrt2}{2}
+q_1
+\]
+
+\[
+E_{1y}
+=
+-
+E_0
+\frac{\sqrt2}{2}
+q_1
+\]
+
+---
+
+### Carga q₂
+
+\[
+E_{2x}
+=
+-
+E_0
+\frac{\sqrt2}{2}
+q_2
+\]
+
+\[
+E_{2y}
+=
+E_0
+\frac{\sqrt2}{2}
+q_2
+\]
+
+---
+
+### Carga q₃
+
+\[
+E_{3x}
+=
+E_0
+\frac{\sqrt2}{2}
+q_3
+\]
+
+\[
+E_{3y}
+=
+E_0
+\frac{\sqrt2}{2}
+q_3
+\]
+
+---
+
+# 🔴 Passo 5 — Campo Elétrico Resultante
+
+Somando as componentes:
+
+\[
+E_x=
+E_0
+\frac{\sqrt2}{2}
+(q_1-q_2+q_3)
+\]
+
+\[
+E_y=
+E_0
+\frac{\sqrt2}{2}
+(-q_1+q_2+q_3)
+\]
+
+Estas são exatamente as fórmulas implementadas:
+
+```java
+double Ex =
+E0*raiz2sobre2*(q1-q2+q3);
+
+double Ey =
+E0*raiz2sobre2*(-q1+q2+q3);
+```
+
+---
+
+# 🔴 Passo 6 — Módulo Resultante
+
+Após obter as componentes:
+
+\[
+E=
+\sqrt{
+E_x^2+
+E_y^2
+}
+\]
+
+Implementação:
+
+```java
+double moduloResultante =
+Math.sqrt(Ex*Ex + Ey*Ey);
+```
+
+---
+
+# 🔴 Passo 7 — Direção do Vetor
+
+A direção do campo elétrico é calculada por:
+
+\[
+\theta=
+\tan^{-1}
+\left(
+\frac{E_y}{E_x}
+\right)
+\]
+
+Implementação:
+
+```java
+double angulo =
+Math.toDegrees(
+Math.atan2(Ey,Ex)
+);
+```
+
+---
+
+# ⚖ Caso Especial de Simetria
+
+Quando:
+
+\[
+q_1=q_2
+\]
+
+os campos produzidos por essas duas cargas possuem:
+
+- mesmo módulo;
+- sentidos opostos.
+
+Portanto:
+
+\[
+E_1+E_2=0
+\]
+
+Restando apenas o campo produzido por \(q_3\).
+
+O programa detecta automaticamente essa situação e informa ao usuário.
+
+---
+
+# 🛡 Tratamento de Erros
+
+O simulador implementa validações para garantir coerência física e computacional.
+
+### Erro de geometria
+
+A distância deve obedecer:
+
+\[
+a>0
+\]
+
+Caso contrário:
+
+```text
+Erro de Geometria:
+A distância 'a' deve ser estritamente maior que zero.
+```
+
+---
+
+### Erro de entrada
+
+Caso o usuário informe letras ou símbolos:
+
+```text
+Erro de Entrada:
+Por favor, insira apenas valores numéricos válidos.
+```
+
+---
+
+# 💻 Tecnologias Utilizadas
+
+- Java
+- Java Swing
+- Programação Orientada a Objetos
+- Eletrostática
+- Álgebra Vetorial
+
+---
+
+# 🚀 Como Executar
+
+Compile:
+
+```bash
+javac CalculadoraEletrostatica.java
+```
+
+Execute:
+
+```bash
+java CalculadoraEletrostatica
+```
+
+---
+
+# 📊 Exemplo de Execução
+
+Entrada:
+
+```text
+q1 = 1
+q2 = 1
+q3 = 2
+a = 6 μm
+```
+
+Saída aproximada:
+
+```text
+Ex = 113,1 N/C
+Ey = 113,1 N/C
+
+Módulo = 160 N/C
+
+Direção = 45°
+```
+
+Observação:
+
+```text
+Como q1 = q2, os campos gerados
+por elas se anulam no ponto P.
+O campo resultante é causado
+apenas pela carga q3.
+```
+
+---
+
+# 👨‍💻 Autor
+
+Projeto desenvolvido para fins acadêmicos na disciplina de Física/Computação, com foco em modelagem matemática, programação e simulação computacional aplicada à eletrostática.
