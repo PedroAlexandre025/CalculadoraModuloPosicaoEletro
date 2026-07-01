@@ -35,11 +35,10 @@ $$d_3^2 = \frac{a^2}{4} + \frac{a^2}{4} = \frac{a^2}{2}$$
 
 Se calcularmos a distância de P até $q_1$ e $q_2$, veremos que é idêntica: $d_1^2 = d_2^2 = \frac{a^2}{2}$.
 
-### 3. A Superposição Vetorial (O Cancelamento)
-O campo elétrico total em P é a soma vetorial: $\vec{E}_{total} = \vec{E}_1 + \vec{E}_2 + \vec{E}_3$.
-Como $q_1 = +e$ e $q_2 = +e$, elas têm o mesmo valor e estão à mesma distância de P. Seus vetores de campo possuem a mesma intensidade, mas apontam em direções opostas ao longo da mesma reta. Portanto, **eles se anulam** ($\vec{E}_1 + \vec{E}_2 = 0$).
-O campo resultante é causado apenas por $q_3$:
-$$\vec{E}_{total} = \vec{E}_3$$
+3. A Superposição Vetorial (O Cancelamento)
+O campo elétrico total em P é a soma vetorial: E_total = E_1 + E_2 + E_3. Como q_1 = +e e q_2 = +e, elas têm o mesmo valor e estão à mesma distância de P. Seus vetores de campo possuem a mesma intensidade, mas apontam em direções opostas ao longo da mesma reta. Portanto, eles se anulam (E_1 + E_2 = 0). O campo resultante é causado apenas por q_3:
+
+E_total = E_3
 
 ### 4. O Cálculo do Módulo Resultante
 Aplicando a fórmula do campo elétrico para $q_3 = 2e$:
