@@ -8,6 +8,9 @@ Em vez de apenas aplicar uma fórmula fechada, este programa realiza a **decompo
 
 ## 📐 O Problema Inspirador
 
+<img width="761" height="364" alt="image" src="https://github.com/user-attachments/assets/0f741654-b046-4fde-93f1-48aaed055ca7" />
+
+
 O programa resolve o seguinte arranjo geométrico:
 * Três partículas carregadas são mantidas fixas em um plano cartesiano.
 * A carga $q_1$ está no eixo y (coordenada $0, a$).
