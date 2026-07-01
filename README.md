@@ -2,9 +2,7 @@
 
 Este projeto é uma aplicação gráfica desenvolvida em Java (Swing) para simular e calcular o vetor campo elétrico resultante em um sistema de cargas pontuais. O sistema foi inspirado em um problema clássico de Física Universitária (Eletromagnetismo/Eletrostática).
 
-## 📖 Sobre o Projeto
 
-Em vez de apenas aplicar uma fórmula fechada, este programa realiza a **decomposição vetorial real** do sistema. Isso permite alterar os valores das cargas na interface gráfica e observar o comportamento físico das forças resultantes no plano cartesiano, respeitando estritamente a geometria do problema.
 
 ## 📐 O Problema Inspirador
 
