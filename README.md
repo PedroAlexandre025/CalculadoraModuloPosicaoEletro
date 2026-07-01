@@ -1,4 +1,4 @@
-# Simulador de Campo Elétrico - Ponto P ⚡
+# Calculadora de Campo Elétrico - Ponto P ⚡
 
 Este projeto é uma aplicação gráfica desenvolvida em Java (Swing) para simular e calcular o vetor campo elétrico resultante em um sistema de cargas pontuais. O sistema foi inspirado em um problema clássico de Física Universitária (Eletromagnetismo/Eletrostática).
 
