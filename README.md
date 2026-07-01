@@ -51,10 +51,15 @@ O programa permite alterar:
 Mantendo a geometria original do problema.
 
 ---
+# 🧮 Resolução Matemática (Passo a Passo)
 
-# 📍 Geometria Utilizada
+A lógica implementada no programa é baseada na resolução analítica do problema original de eletrostática.
 
-O sistema adota a seguinte configuração cartesiana:
+---
+
+## 🔴 Passo 1 — Determinando a posição do ponto P
+
+A geometria do problema é um triângulo retângulo isósceles:
 
 ```text
                 y
@@ -72,150 +77,84 @@ O sistema adota a seguinte configuração cartesiana:
                     x
 ```
 
-As posições são:
+As posições das cargas são:
 
-\[
-q_1=(0,a)
-\]
+```text
+q1 = (0,a)
+q2 = (a,0)
+q3 = (0,0)
+```
 
-\[
-q_2=(a,0)
-\]
+O ponto P encontra-se exatamente no ponto médio da hipotenusa.
 
-\[
-q_3=(0,0)
-\]
+Calculando a média das coordenadas:
 
-O ponto P encontra-se exatamente no ponto médio da hipotenusa:
-
-\[
-P=
-\left(
-\frac a2,
-\frac a2
-\right)
-\]
-
----
-
-# 📚 Fundamentação Teórica
-
-O campo elétrico produzido por uma carga puntiforme é definido por:
-
-\[
-E=
-\frac{kq}{r^2}
-\]
-
-onde:
-
-| Símbolo | Descrição |
-|---|---|
-| \(E\) | Campo elétrico |
-| \(k\) | Constante eletrostática |
-| \(q\) | Valor da carga |
-| \(r\) | Distância até o ponto analisado |
-
-A constante eletrostática utilizada é:
-
-\[
-k=8,99\times10^9\ N\cdot m^2/C^2
-\]
-
----
-
-# 🔴 Passo 1 — Encontrando o ponto P
-
-Como o triângulo é retângulo e isósceles, o ponto P encontra-se exatamente no centro da hipotenusa.
-
-Logo:
-
-\[
-x_P=\frac{0+a}{2}
-\]
-
-\[
-y_P=\frac{a+0}{2}
-\]
-
-resultando em:
-
-\[
-P=
-\left(
-\frac a2,
-\frac a2
-\right)
-\]
-
----
-
-# 🔴 Passo 2 — Calculando a distância até P
-
-Aplicando Pitágoras:
-
-\[
-r^2=
-\left(
-\frac a2
-\right)^2+
-\left(
-\frac a2
-\right)^2
-\]
-
-\[
-r^2=
-\frac{a^2}{4}+
-\frac{a^2}{4}
-\]
-
-\[
-r^2=
-\frac{a^2}{2}
-\]
+```text
+xP = (0 + a)/2
+yP = (a + 0)/2
+```
 
 Portanto:
 
-\[
-r=
-\frac a{\sqrt2}
-\]
+```text
+P = (a/2 , a/2)
+```
+
+---
+
+## 🔴 Passo 2 — Calculando a distância até P
+
+Aplicando o Teorema de Pitágoras:
+
+```text
+r² = (a/2)² + (a/2)²
+```
+
+Desenvolvendo:
+
+```text
+r² = a²/4 + a²/4
+
+r² = a²/2
+```
+
+Logo:
+
+```text
+r = a/√2
+```
 
 Essa distância é a mesma para as três cargas.
 
 ---
 
-# 🔴 Passo 3 — Campo produzido por uma carga elementar
+## 🔴 Passo 3 — Campo elétrico de uma carga
 
-Substituindo a distância na fórmula do campo elétrico:
+A fórmula geral do campo elétrico é:
 
-\[
-E=
-\frac{kq}{a^2/2}
-\]
+```text
+E = kq/r²
+```
+
+Substituindo a distância encontrada:
+
+```text
+E = kq/(a²/2)
+```
 
 Dividir por uma fração equivale a multiplicar pelo inverso:
 
-\[
-E=
-\frac{2kq}{a^2}
-\]
+```text
+E = 2kq/a²
+```
 
-Adotando:
+Como o programa utiliza a carga elementar (e), define-se:
 
-\[
-q=e
-\]
+```text
+E0 = 2ke/a²
+```
 
-obtemos o fator utilizado pelo programa:
-
-\[
-E_0=
-\frac{2ke}{a^2}
-\]
-
-Implementado como:
+Essa é exatamente a expressão implementada no código:
 
 ```java
 double E0 = (2*k*eCarga)/Math.pow(aMetros,2);
@@ -223,123 +162,78 @@ double E0 = (2*k*eCarga)/Math.pow(aMetros,2);
 
 ---
 
-# 🔴 Passo 4 — Decomposição Vetorial
+## 🔴 Passo 4 — Decomposição Vetorial
 
-Como todos os vetores fazem um ângulo de 45°:
+Todos os vetores formam um ângulo de 45° com os eixos.
 
-\[
-\sin45^\circ=
-\cos45^\circ=
-\frac{\sqrt2}{2}
-\]
+Sabemos que:
 
-As componentes produzidas por cada carga são:
+```text
+sen(45°) = cos(45°) = √2/2
+```
 
-### Carga q₁
+Portanto, as componentes dos campos elétricos são:
 
-\[
-E_{1x}
-=
-E_0
-\frac{\sqrt2}{2}
-q_1
-\]
+### Campo produzido por q1
 
-\[
-E_{1y}
-=
--
-E_0
-\frac{\sqrt2}{2}
-q_1
-\]
+```text
+E1x = +(E0·√2/2)·q1
+E1y = -(E0·√2/2)·q1
+```
 
----
+### Campo produzido por q2
 
-### Carga q₂
+```text
+E2x = -(E0·√2/2)·q2
+E2y = +(E0·√2/2)·q2
+```
 
-\[
-E_{2x}
-=
--
-E_0
-\frac{\sqrt2}{2}
-q_2
-\]
+### Campo produzido por q3
 
-\[
-E_{2y}
-=
-E_0
-\frac{\sqrt2}{2}
-q_2
-\]
-
----
-
-### Carga q₃
-
-\[
-E_{3x}
-=
-E_0
-\frac{\sqrt2}{2}
-q_3
-\]
-
-\[
-E_{3y}
-=
-E_0
-\frac{\sqrt2}{2}
-q_3
-\]
-
----
-
-# 🔴 Passo 5 — Campo Elétrico Resultante
-
-Somando as componentes:
-
-\[
-E_x=
-E_0
-\frac{\sqrt2}{2}
-(q_1-q_2+q_3)
-\]
-
-\[
-E_y=
-E_0
-\frac{\sqrt2}{2}
-(-q_1+q_2+q_3)
-\]
-
-Estas são exatamente as fórmulas implementadas:
-
-```java
-double Ex =
-E0*raiz2sobre2*(q1-q2+q3);
-
-double Ey =
-E0*raiz2sobre2*(-q1+q2+q3);
+```text
+E3x = +(E0·√2/2)·q3
+E3y = +(E0·√2/2)·q3
 ```
 
 ---
 
-# 🔴 Passo 6 — Módulo Resultante
+## 🔴 Passo 5 — Superposição Vetorial
 
-Após obter as componentes:
+Aplicando o princípio da superposição:
 
-\[
-E=
-\sqrt{
-E_x^2+
-E_y^2
-}
-\]
+```text
+Ex = E1x + E2x + E3x
 
-Implementação:
+Ey = E1y + E2y + E3y
+```
+
+Substituindo as componentes:
+
+```text
+Ex = E0·(√2/2)·(q1 - q2 + q3)
+
+Ey = E0·(√2/2)·(-q1 + q2 + q3)
+```
+
+Estas são exatamente as fórmulas implementadas no programa:
+
+```java
+double Ex = E0 * raiz2sobre2 * (q1 - q2 + q3);
+
+double Ey = E0 * raiz2sobre2 * (-q1 + q2 + q3);
+```
+
+---
+
+## 🔴 Passo 6 — Cálculo do Módulo Resultante
+
+Após calcular as componentes X e Y, utiliza-se o Teorema de Pitágoras:
+
+```text
+E = √(Ex² + Ey²)
+```
+
+Implementado como:
 
 ```java
 double moduloResultante =
@@ -348,52 +242,53 @@ Math.sqrt(Ex*Ex + Ey*Ey);
 
 ---
 
-# 🔴 Passo 7 — Direção do Vetor
+## 🔴 Passo 7 — Determinação da Direção
 
-A direção do campo elétrico é calculada por:
+A direção do vetor campo elétrico é obtida pela tangente inversa:
 
-\[
-\theta=
-\tan^{-1}
-\left(
-\frac{E_y}{E_x}
-\right)
-\]
+```text
+θ = arctan(Ey/Ex)
+```
 
-Implementação:
+No programa:
 
 ```java
 double angulo =
 Math.toDegrees(
-Math.atan2(Ey,Ex)
+    Math.atan2(Ey, Ex)
 );
+```
+
+O resultado é normalizado para permanecer no intervalo:
+
+```text
+0° ≤ θ ≤ 360°
 ```
 
 ---
 
-# ⚖ Caso Especial de Simetria
+## ⚖ Caso Especial de Simetria
 
 Quando:
 
-\[
-q_1=q_2
-\]
+```text
+q1 = q2
+```
 
-os campos produzidos por essas duas cargas possuem:
+os campos produzidos por q1 e q2 possuem:
 
 - mesmo módulo;
-- sentidos opostos.
+- direções opostas.
 
-Portanto:
+Consequentemente:
 
-\[
-E_1+E_2=0
-\]
+```text
+E1 + E2 = 0
+```
 
-Restando apenas o campo produzido por \(q_3\).
+e o campo resultante passa a depender exclusivamente da carga q3.
 
-O programa detecta automaticamente essa situação e informa ao usuário.
-
+O programa detecta automaticamente essa condição e apresenta uma observação física ao usuário.
 ---
 
 # 🛡 Tratamento de Erros
